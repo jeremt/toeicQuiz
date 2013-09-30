@@ -1,5 +1,6 @@
 
-var startButton = document.querySelector("#start-button");
+var startButtonFR = document.querySelector("#start-button-fr");
+var startButtonEN = document.querySelector("#start-button-en");
 var wordQuestion = document.querySelector("#word-question");
 var wordInput = document.querySelector("#word-input");
 var gameOver = document.querySelector("#game-over");
@@ -11,6 +12,8 @@ var currentWord = [];
 var total = words.length;
 var current = 1;
 var errors = 0;
+var FIRST = 0;
+var SECOND = 1;
 
 function showGameOver() {
   gameOver.style.display = "block";
@@ -30,12 +33,13 @@ function nextQuestion() {
   currentWord = words.splice(
     ~~(Math.random() * words.length - 1), 1
   )[0];
-  wordQuestion.innerHTML = current + ". " + currentWord[0];
+  wordQuestion.innerHTML = current + ". " + currentWord[FIRST];
   ++current;
 }
 
 function startGame() {
-  startButton.style.display = "none";
+  startButtonFR.style.display = "none";
+  startButtonEN.style.display = "none";
   wordQuestion.style.display = "block";
   wordInput.style.display = "block";
   nextQuestion();
@@ -43,9 +47,9 @@ function startGame() {
 
 function answerQuestion() {
   var first = wordInput.value.toLowerCase();
-  var second = currentWord[1].toLowerCase();
+  var second = currentWord[SECOND].toLowerCase();
   if (first !== second) {
-    errorMessage.innerHTML = currentWord[1];
+    errorMessage.innerHTML = currentWord[SECOND];
     errorMessage.style.display = "block";
     errors++;
   } else
@@ -54,5 +58,11 @@ function answerQuestion() {
   nextQuestion();
 }
 
-startButton.addEventListener("click", startGame);
+startButtonFR.addEventListener("click", startGame);
+startButtonEN.addEventListener("click", function () {
+  FIRST = 1;
+  SECOND = 0;
+  startGame();
+});
+
 wordInput.addEventListener("change", answerQuestion);
