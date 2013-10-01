@@ -8,6 +8,7 @@ var gameOverMessage = document.querySelector("#game-over-message");
 var replayButton = document.querySelector("#replay-button");
 var score = document.querySelector("#score");
 var errorMessage = document.querySelector("#error-message");
+var successMessage = document.querySelector("#success-message");
 var currentWord = [];
 var total = words.length;
 var current = 1;
@@ -16,10 +17,31 @@ var FIRST = 0;
 var SECOND = 1;
 
 function showGameOver() {
+  var messages = [
+    "Perfect, awesome!",
+    "Great :p",
+    "Not too bad :/",
+    "I must work harder...",
+    "Seriously?!",
+    "You desapoint me so mush -_-"
+  ];
   gameOver.style.display = "block";
   wordQuestion.style.display = "none";
   wordInput.style.display = "none";
   errorMessage.style.display = "none";
+  var percent = errors / total;
+  if (percent === 0)
+    gameOverMessage.innerHTML = messages[0];
+  else if (percent < 0.1)
+    gameOverMessage.innerHTML = messages[1];
+  else if (percent < 0.2)
+    gameOverMessage.innerHTML = messages[2];
+  else if (percent < 0.4)
+    gameOverMessage.innerHTML = messages[3];
+  else if (percent < 0.7)
+    gameOverMessage.innerHTML = messages[4];
+  else
+    gameOverMessage.innerHTML = messages[5];
 }
 
 replayButton.addEventListener("click", function () {
@@ -51,9 +73,12 @@ function answerQuestion() {
   if (first !== second) {
     errorMessage.innerHTML = currentWord[SECOND];
     errorMessage.style.display = "block";
+    successMessage.style.display = "none";
     errors++;
-  } else
+  } else {
     errorMessage.style.display = "none";
+    successMessage.style.display = "block";
+  }
   wordInput.value = "";
   nextQuestion();
 }
