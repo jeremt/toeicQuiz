@@ -8,7 +8,7 @@ var words = [
   ["I ran into a friend", "J'ai croisé un ami"],
   ["Filing cabinet", "Armoire à glace"],
   ["Water cooler", "Fontaine à eau"],
-  ["The key holder", "Le porte clef"],
+  ["The key holder", "Le porte clefs"],
   ["The backstroke", "Le dos crollé"],
   ["To break into", "Commettre une effraction"],
   ["Labels", "Etiquettes"],
