@@ -93,3 +93,7 @@ h1 {
 #success-message {
   color: green;
 }
+
+#miss-message {
+  color: orange;
+}
