@@ -6,17 +6,28 @@ var wordInput = document.querySelector("#word-input");
 var gameOver = document.querySelector("#game-over");
 var gameOverMessage = document.querySelector("#game-over-message");
 var replayButton = document.querySelector("#replay-button");
-var score = document.querySelector("#score");
+var scoreMessage = document.querySelector("#score-message");
 var errorMessage = document.querySelector("#error-message");
 var successMessage = document.querySelector("#success-message");
+var timeMessage = document.querySelector("#time-message");
 var currentWord = [];
 var total = words.length;
 var current = 1;
 var errors = 0;
 var FIRST = 0;
 var SECOND = 1;
+var currentTime = 0;
+var inGame = false;
+
+setInterval(function () {
+  if (inGame) {
+    ++currentTime;
+    timeMessage.innerHTML = ~~(currentTime / 60) + ":" + ~~(currentTime % 60);
+  }
+}, 1000);
 
 function showGameOver() {
+  inGame = false;
   var messages = [
     "Perfect, awesome!",
     "Great :p",
@@ -29,6 +40,7 @@ function showGameOver() {
   wordQuestion.style.display = "none";
   wordInput.style.display = "none";
   errorMessage.style.display = "none";
+  successMessage.style.display = "none";
   var percent = errors / total;
   if (percent === 0)
     gameOverMessage.innerHTML = messages[0];
@@ -49,7 +61,7 @@ replayButton.addEventListener("click", function () {
 });
 
 function nextQuestion() {
-  score.innerHTML = errors + " errors on " + total;
+  scoreMessage.innerHTML = errors + " errors on " + total;
   if (words.length === 0)
     return showGameOver();
   currentWord = words.splice(
@@ -64,6 +76,7 @@ function startGame() {
   startButtonEN.style.display = "none";
   wordQuestion.style.display = "block";
   wordInput.style.display = "block";
+  inGame = true;
   nextQuestion();
 }
 
