@@ -10,6 +10,7 @@ var scoreMessage = document.querySelector("#score-message");
 var errorMessage = document.querySelector("#error-message");
 var successMessage = document.querySelector("#success-message");
 var timeMessage = document.querySelector("#time-message");
+var missMessage = document.querySelector("#miss-message");
 var currentWord = [];
 var total = words.length;
 var current = 1;
@@ -18,6 +19,8 @@ var FIRST = 0;
 var SECOND = 1;
 var currentTime = 0;
 var inGame = false;
+var maxDist = 0.15;
+var missDist = 0.30;
 
 setInterval(function () {
   if (inGame) {
@@ -83,14 +86,23 @@ function startGame() {
 function answerQuestion() {
   var first = wordInput.value.toLowerCase();
   var second = currentWord[SECOND].toLowerCase();
-  if (first !== second) {
-    errorMessage.innerHTML = currentWord[SECOND];
-    errorMessage.style.display = "block";
-    successMessage.style.display = "none";
-    errors++;
-  } else {
+  var Dist = distanceSift3(cleanDeter(first), cleanDeter(second))/second.length;
+
+  if (Dist < maxDist) {
+    missMessage.style.display = "none";
     errorMessage.style.display = "none";
     successMessage.style.display = "block";
+  } else  if (Dist < missDist) {
+    missMessage.innerHTML = currentWord[SECOND];
+    missMessage.style.display = "block";
+    errorMessage.style.display = "none";
+    successMessage.style.display = "none";
+  } else {
+    errorMessage.innerHTML = currentWord[SECOND];
+    errorMessage.style.display = "block";
+    missMessage.style.display = "none";
+    successMessage.style.display = "none";
+    errors++;
   }
   wordInput.value = "";
   nextQuestion();
