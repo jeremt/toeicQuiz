@@ -4,7 +4,7 @@ var words = [
   ["it will work out", "ça va le faire"],
   ["the staff", "l'équipe"],
   ["We have to check out", "Nous devons quitter l'hôtel"],
-  ["Draftmen", "Dessinateurs"],
+  ["Draftsmen", "Dessinateurs"],
   ["I ran into a friend", "J'ai croisé un ami"],
   ["Filing cabinet", "Armoire à glace"],
   ["Water cooler", "Fontaine à eau"],
